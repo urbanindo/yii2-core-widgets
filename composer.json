@@ -1,0 +1,25 @@
+{
+    "name": "urbanindo/yii2-core-widgets",
+    "description": "Basic extension of Yii2 core widget.",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Petra Barus",
+            "email": "petra.barus@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "yiisoft/yii2": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.6.*",
+        "yiisoft/yii2-coding-standards": "*",
+        "squizlabs/php_codesniffer": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "UrbanIndo\\Yii2\\CoreWidgets\\": "src/"
+        }
+    }
+}
