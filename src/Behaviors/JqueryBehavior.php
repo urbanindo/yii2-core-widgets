@@ -6,8 +6,9 @@
 
 namespace UrbanIndo\Yii2\CoreWidgets\Behaviors;
 
+use yii\base\Widget;
 use yii\web\View;
-use UrbanIndo\Yii2\CoreWidgets\Event;
+use yii\base\WidgetEvent;
 use UrbanIndo\Yii2\CoreWidgets\EventInterface;
 
 /**
@@ -51,14 +52,14 @@ JS
     {
         /* @var $owner \yii\base\Widget */
         $this->owner = $owner;
-        $this->owner->on(EventInterface::EVENT_AFTER_RUN, [$this, 'afterRun']);
+        $this->owner->on(Widget::EVENT_AFTER_RUN, [$this, 'afterRun']);
     }
     
     /**
      * Attach javascript after widget run with $this->jsPosition.
      * @param Event $event WidgetEvent.
      */
-    public function afterRun(Event $event)
+    public function afterRun(WidgetEvent $event)
     {
         $event; // unused
         if (isset($this->widgetId)) {

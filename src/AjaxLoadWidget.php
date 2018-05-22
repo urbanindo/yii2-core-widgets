@@ -6,6 +6,9 @@
 
 namespace UrbanIndo\Yii2\CoreWidgets;
 
+use yii\helpers\Url;
+use yii\web\JqueryAsset;
+
 /**
  * AjaxLoadWidget is a widget that loads its content from URL.
  * @author Petra Barus <petra.barus@gmail.com>
@@ -50,9 +53,9 @@ class AjaxLoadWidget extends HtmlWidget
      */
     private function registerJs()
     {
-        $url = \yii\helpers\Url::to($this->url);
-        
-        \yii\web\JqueryAsset::register($this->getView());
+        $url = Url::to($this->url);
+
+        JqueryAsset::register($this->getView());
         $this->getView()->registerJs(<<<JS
 $('#{$this->options['id']}').load('{$url}', function (response, textStatus, xhr) {
     if (textStatus == "error") {

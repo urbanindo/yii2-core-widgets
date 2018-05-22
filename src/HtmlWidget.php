@@ -19,7 +19,7 @@ use yii\base\Widget;
  *
  * @author Petra Barus <petra.barus@gmail.com>
  */
-abstract class HtmlWidget extends Widget implements EventInterface
+abstract class HtmlWidget extends Widget
 {
     use EventTrait;
 
