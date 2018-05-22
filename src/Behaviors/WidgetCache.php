@@ -6,10 +6,11 @@
 
 namespace UrbanIndo\Yii2\CoreWidgets\Behaviors;
 
+use yii\base\Behavior;
+use yii\base\Widget;
+use yii\base\WidgetEvent;
 use yii\di\Instance;
 use yii\caching\Cache;
-use UrbanIndo\Yii2\CoreWidgets\EventInterface;
-use UrbanIndo\Yii2\CoreWidgets\Event;
 
 /**
  * WidgetCache is a behavior for EventTrait to handle caching.
@@ -17,7 +18,7 @@ use UrbanIndo\Yii2\CoreWidgets\Event;
  * @author Petra Barus <petra.barus@gmail.com>
  * @property-read \yii\base\Widget $owner
  */
-class WidgetCache extends \yii\base\Behavior
+class WidgetCache extends Behavior
 {
     const CACHE_DURATION_1_MINUTE = 60;
 
@@ -85,21 +86,21 @@ class WidgetCache extends \yii\base\Behavior
     public function attach($owner)
     {
         $this->owner = $owner;
-        $this->owner->on(EventInterface::EVENT_BEFORE_RUN, [$this, 'beforeRun']);
+        $this->owner->on(Widget::EVENT_BEFORE_RUN, [$this, 'beforeRun']);
     }
     
     /**
      * Handle cache before run.
-     * @param Event $event The event.
+     * @param WidgetEvent $event The event.
      */
-    public function beforeRun(Event $event)
+    public function beforeRun(WidgetEvent $event)
     {
         foreach (['cache', 'duration', 'dependency', 'variations'] as $name) {
             $properties[$name] = $this->{$name};
         }
         
         if ($this->owner->getView()->beginCache(get_class($this->owner) . $this->owner->getId(), $properties)) {
-            $this->owner->on(EventInterface::EVENT_AFTER_RUN, [$this, 'afterRun']);
+            $this->owner->on(Widget::EVENT_AFTER_RUN, [$this, 'afterRun']);
             $event->isValid = true;
         } else {
             $event->isValid = false;
@@ -108,9 +109,9 @@ class WidgetCache extends \yii\base\Behavior
     
     /**
      * Handle cache after run.
-     * @param Event $event The event.
+     * @param WidgetEvent $event The event.
      */
-    public function afterRun(Event $event)
+    public function afterRun(WidgetEvent $event)
     {
         echo $event->result;
         $event->result = '';

@@ -10,6 +10,8 @@ namespace UrbanIndo\Yii2\CoreWidgets;
 
 use Yii;
 use yii\base\InvalidCallException;
+use yii\base\Widget;
+use yii\base\WidgetEvent;
 use Exception;
 
 /**
@@ -19,6 +21,7 @@ use Exception;
  * Use this for advanced widget that uses behavior like caching, etc.
  *
  * @author Petra Barus <petra.barus@gmail.com>
+ * @deprecated since Yii 2.0.11
  */
 trait EventTrait
 {
@@ -31,8 +34,8 @@ trait EventTrait
      * @return boolean Whether widget is valid to continue.
      */
     public function beforeRun() {
-        $event = new Event($this);
-        $this->trigger(EventInterface::EVENT_BEFORE_RUN, $event);
+        $event = new WidgetEvent();
+        $this->trigger(Widget::EVENT_BEFORE_RUN, $event);
         return $event->isValid;
     }
 
@@ -47,9 +50,9 @@ trait EventTrait
      * @return mixed the processed widget result.
      */
     public function afterRun($result) {
-        $event = new Event($this);
+        $event = new WidgetEvent();
         $event->result = $result;
-        $this->trigger(EventInterface::EVENT_AFTER_RUN, $event);
+        $this->trigger(Widget::EVENT_AFTER_RUN, $event);
         return $event->result;
     }
 
